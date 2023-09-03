@@ -27,7 +27,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
 
         Route::group(['prefix' => 'message', ], function () {
-            Route::post('send', [MessageController::class, 'store']);
+            Route::post('broadcast', [MessageController::class, 'broadcast']);
             Route::get('index', [MessageController::class, 'index']);
         });
     });
