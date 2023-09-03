@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\MessageController;
+use App\Http\Controllers\Api\v1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1'], function () {
+
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', [AuthController::class, 'login']);
+    });
+
+    Route::get('user/{user_id}', [UserController::class, 'show']);
+
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+
+        Route::group(['prefix' => 'message', ], function () {
+            Route::post('send', [MessageController::class, 'store']);
+            Route::get('index', [MessageController::class, 'index']);
+        });
+    });
 });
+
