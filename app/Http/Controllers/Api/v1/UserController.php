@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -11,8 +11,8 @@ class UserController extends Controller
     {
     }
 
-    public function show(int $user_id): int
+    public function show(string $user_id): \Illuminate\Http\JsonResponse
     {
-        return $user_id;
+        return response()->json(User::find($user_id));
     }
 }
