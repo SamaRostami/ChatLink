@@ -11,10 +11,15 @@ class Message extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = ['user_id', 'message'];
-    protected $hidden = ['updated_at'];
+    protected $hidden = ['user_id', 'seen', 'updated_at'];
 
     protected $casts = [
         'seen' => 'boolean',
         'created_at' => 'datetime:Y-m-d H:m:s',
     ];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
