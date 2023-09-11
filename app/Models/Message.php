@@ -12,6 +12,7 @@ class Message extends Model
 
     protected $fillable = ['user_id', 'message'];
     protected $hidden = ['user_id', 'seen', 'updated_at'];
+    protected $with = ['user'];
 
     protected $casts = [
         'seen' => 'boolean',

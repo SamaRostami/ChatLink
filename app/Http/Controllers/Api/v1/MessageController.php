@@ -15,7 +15,7 @@ class MessageController extends Controller
 
     public function index(): \Illuminate\Http\JsonResponse
     {
-        return response()->json(Message::with('user')->orderByDesc('created_at')->get());
+        return response()->json(Message::orderByDesc('created_at')->get());
     }
 
     public function broadcast(MessageStoreRequest $request): \Illuminate\Http\JsonResponse
@@ -24,10 +24,10 @@ class MessageController extends Controller
         $newMessage = Message::create([
             'user_id' => auth()->id(),
             'message' => $message
-        ])->with('user')->first();
+        ]);
 
         broadcast(new MainRoomBroadcast($newMessage));
 
-        return response()->json($newMessage);
+        return response()->json(Message::findOrFail($newMessage->id));
     }
 }
