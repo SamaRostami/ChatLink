@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,16 +16,14 @@ class MainRoomBroadcast implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public string $message;
-    public Authenticatable $user;
+    public Message $message;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(string $message, Authenticatable $user)
+    public function __construct(Message $message)
     {
         $this->message = $message;
-        $this->user = $user;
     }
 
     /**
