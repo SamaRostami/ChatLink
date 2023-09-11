@@ -13,6 +13,6 @@ class UserController extends Controller
 
     public function show(string $user_id): \Illuminate\Http\JsonResponse
     {
-        return response()->json(User::find($user_id));
+        return response()->json(User::query()->findOrFail($user_id));
     }
 }

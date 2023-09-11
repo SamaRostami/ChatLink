@@ -27,7 +27,7 @@ class MessageController extends Controller
             'message' => $message
         ]);
 
-        broadcast(new MainRoomBroadcast($message))->toOthers();
+        broadcast(new MainRoomBroadcast($message, auth()->user()))->toOthers();
 
         return response()->json($newMessage);
     }
