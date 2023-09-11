@@ -15,7 +15,7 @@ class MessageController extends Controller
 
     public function index(): \Illuminate\Http\JsonResponse
     {
-        return response()->json(Message::with('user')->get());
+        return response()->json(Message::with('user')->orderByDesc('created_at')->get());
     }
 
     public function broadcast(MessageStoreRequest $request): \Illuminate\Http\JsonResponse
