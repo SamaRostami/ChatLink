@@ -46,8 +46,8 @@ class AuthController extends Controller
         return response()->json(['message' => 'Username is already taken.'], 422);
     }
 
-    private function avatarCreator(string $username)
+    private function avatarCreator(string $username): string
     {
-        return 'https://ui-avatars.com/api/?background=random&color=fff&name='.urlencode($username).'&bold=true&format=svg';
+        return 'https://ui-avatars.com/api/?background=random&color=fff&name='.urlencode($username).'&bold=true&format=png';
     }
 }
