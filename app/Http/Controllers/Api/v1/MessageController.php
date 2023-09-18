@@ -26,8 +26,9 @@ class MessageController extends Controller
             'message' => $message
         ]);
 
-        broadcast(new MainRoomBroadcast($newMessage));
+        $resultMessage = Message::findOrFail($newMessage->id);
+        broadcast(new MainRoomBroadcast($resultMessage));
 
-        return response()->json(Message::findOrFail($newMessage->id));
+        return response()->json($resultMessage);
     }
 }

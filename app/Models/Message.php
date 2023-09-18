@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,8 +17,12 @@ class Message extends Model
 
     protected $casts = [
         'seen' => 'boolean',
-        'created_at' => 'datetime:Y-m-d H:m:s',
     ];
+
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->timezone(env('APP_TIMEZONE', 'UTC'))->format('Y-m-d H:i:s');
+    }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
